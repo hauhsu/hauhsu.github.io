@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>HauToLive</title>
+
+            <link href="http://hauhsu.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Full Atom Feed" />
+            <link href="http://hauhsu.github.io/feeds/note.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Categories Atom Feed" />
+
+        <!-- Bootstrap Core CSS -->
+        <link href="http://hauhsu.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://hauhsu.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://hauhsu.github.io/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+
+        <meta name="tags" contents="pelican" />
+        <meta name="tags" contents="blog" />
+        <meta name="tags" contents="git" />
+        <meta name="tags" contents="python" />
+
+
+			<meta property="og:locale" content="en">
+		<meta property="og:site_name" content="HauToLive">
+
+	<meta property="og:type" content="article">
+	<meta property="article:author" content="">
+	<meta property="og:url" content="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html">
+	<meta property="og:title" content="用 Pelican 在 GitHub 上建立 Blog">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="http://hauhsu.github.io/">
+	<meta property="article:published_time" content="2016-06-02 16:00:00+08:00">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://hauhsu.github.io/">HauToLive</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://hauhsu.github.io/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>用 Pelican 在 GitHub 上建立 Blog</h1>
+                        <span class="meta">Posted by
+                                <a href="http://hauhsu.github.io/author/hau-hsu.html">Hau Hsu</a>
+                             on Thu 02 June 2016
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <h2>GitHub Pages 簡介</h2>
+<p>GitHub 有提供一個簡單的方法讓使用者架設個人網站 (User Pages) 或專案網站 (Project Pages)。
+這篇主要是講個人網站的部分，其實也就是這個網站怎麼架的:p。<br />
+要使用 GitHub 的 User Page，首先要在 GitHub 上建立一個 repo，而且名稱必須是 \&lt;username>.github.io。
+我的帳號是hauhsu，所以 repo 名稱就是 hauhsu.github.io。
+接著只要將靜態網頁放到這個 repo 的 master branch，就可以透過網址 http://\&lt;username>.github.io 連到你的網站，所以這個網站的網址才會是 http://hauhsu.github.io。</p>
+<h2>Pelican 文件的說明...不太清楚</h2>
+<p>Pelican 產生出來的靜態網頁會放在 output 資料夾，所以只要把 output 內的東西放到你個人網站的 repo 的 master branch 就行了。
+在 Pelican 的官方文件中，<a href="http://docs.getpelican.com/en/3.6.3/tips.html#publishing-to-github">有一段</a>是說明如何將產生出來的靜態網頁放上 Github pages。文件的做法是利用 <a href="https://github.com/davisp/ghp-import">ghp-import</a> 這個小工具，他可以幫你把某個資料夾的內容更新到當本地端 repo 的 gh-pages branch。</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">pelican</span> <span class="n">content</span> <span class="o">-</span><span class="n">o</span> <span class="n">output</span> <span class="o">-</span><span class="n">s</span> <span class="n">pelicanconf</span><span class="o">.</span><span class="n">py</span>
+<span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">git</span><span class="nd">@github.com</span><span class="p">:</span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">username</span><span class="o">&gt;.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">git</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+</pre></div>
+
+
+<p>上面的三個指令的作用分別是：  </p>
+<ol>
+<li>用 Pelican 產生靜態網頁並放到 output 資料夾</li>
+<li>用 ghp-import 把 output 的檔案更新到 gh-pages 這個 branch</li>
+<li>手動把 gh-pages push 到個人網站 repo 的 master branch</li>
+</ol>
+<p>但是這邊沒有說本地端的 repo 是什麼，我有找到<a href="https://fedoramagazine.org/make-github-pages-blog-with-pelican/">一篇教學</a>是把 output 資料夾本身當成一個 submodule，不過我覺得 submodule 的操作太複雜，以下會介紹我覺得比較直覺而簡單的做法。</p>
+<h2>手把手一步步分解教學</h2>
+<h3>建立 Pelican project</h3>
+<p>先在你想要建立專案的地方建立一個資料夾，我先假設你要建在家目錄下的 blog 資料夾： </p>
+<div class="highlight"><pre><span></span>$ mkdir ~/blog
+$ <span class="nb">cd</span> ~/blog
+$ pelican-quickstart
+</pre></div>
+
+
+<p>接著會有一個簡單的終端機互動介面，給你一些選項讓你設定。以下是我的輸入，有些資訊請記得根據自己的需要修改，中括弧內的字是預設的選項，如果我沒有打任何字就是直接按 enter 使用預設值：</p>
+<div class="highlight"><pre><span></span>Welcome to pelican-quickstart v3.6.3.
+
+This script will help you create a new Pelican-based website.
+
+Please answer the following questions so this script can generate the files
+needed by Pelican.
+
+
+&gt; Where do you want to create your new web site? [.] 
+&gt; What will be the title of this web site? MyWebsite
+&gt; Who will be the author of this web site? HauHsu
+&gt; What will be the default language of this web site? [en] 
+</pre></div>
+
+
+<p>注意這邊要輸入你自己的 GitHub User Page 的網址</p>
+<div class="highlight"><pre><span></span>&gt; Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) y                       
+&gt; What is your URL prefix? (see above example; no trailing slash) http://hauhsu.github.io 
+&gt; Do you want to enable article pagination? (Y/n) y
+&gt; How many articles per page do you want? [10] 
+&gt; What is your time zone? [Europe/Paris] Asia/Taipei
+&gt; Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) y
+&gt; Do you want an auto-reload &amp; simpleHTTP script to assist with theme and site development? (Y/n) y
+&gt; Do you want to upload your website using FTP? (y/N) n
+&gt; Do you want to upload your website using SSH? (y/N) n
+&gt; Do you want to upload your website using Dropbox? (y/N) n
+&gt; Do you want to upload your website using S3? (y/N) n
+&gt; Do you want to upload your website using Rackspace Cloud Files? (y/N) n
+</pre></div>
+
+
+<p>當問到你會不會用 GitHub Pages 的時候要選 y</p>
+<div class="highlight"><pre><span></span>&gt; Do you want to upload your website using GitHub Pages? (y/N) y
+&gt; Is this your personal page (username.github.io)? (y/N) y
+Done. Your new project is available at ~/blog 
+</pre></div>
+
+
+<p>然後隨便 po 一篇文，也就是在 content 資料夾中建立一個文件叫 <code>first_post.md</code> ，並把以下的內容貼到裡面。</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">My</span> <span class="kd">super</span> <span class="n">title</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">30</span> <span class="mi">22</span><span class="o">:</span><span class="mi">34</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">Python</span>
+<span class="n">Tags</span><span class="o">:</span> <span class="n">pelican</span><span class="o">,</span> <span class="n">publishing</span>
+<span class="n">Slug</span><span class="o">:</span> <span class="n">my</span><span class="o">-</span><span class="kd">super</span><span class="o">-</span><span class="n">post</span>
+<span class="n">Author</span><span class="o">:</span> <span class="n">Hau</span> <span class="n">Hsu</span>
+<span class="n">Summary</span><span class="o">:</span> <span class="n">Short</span> <span class="n">version</span> <span class="k">for</span> <span class="n">index</span> <span class="n">and</span> <span class="n">feeds</span>
+<span class="n">Status</span><span class="o">:</span> <span class="n">published</span>
+
+<span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">content</span> <span class="n">of</span> <span class="n">my</span> <span class="kd">super</span> <span class="n">blog</span> <span class="n">post</span><span class="o">.</span>
+</pre></div>
+
+
+<p>接著用 Pelican 給的 makefile 生出靜態網頁，並且開啟簡單的 http 伺服器讓你可以透過瀏覽器預覽結果：</p>
+<div class="highlight"><pre><span></span>$ make html <span class="o">&amp;&amp;</span> make serve
+Done: Processed <span class="m">1</span> article, <span class="m">0</span> drafts, <span class="m">0</span> pages and <span class="m">0</span> hidden pages in 0.23 seconds.
+<span class="nb">cd</span> /Users/howardxu/Test/pelican/output <span class="o">&amp;&amp;</span> python -m pelican.server
+</pre></div>
+
+
+<p>沒意外的話你可以在瀏覽器的網址列輸入：<a href="localhost:8000">localhost:8000</a>，就會看到你的網站。</p>
+<p><img src="images/local_host_preview.png"  style="width: 80%; height: 80%"/></p>
+<p>要關掉 http server 可以回到終端機，按下 <code>ctrl + c</code></p>
+<h3>建立 Pelican 專案的 repo</h3>
+<p>現在我們為這個 project 建立一個 repo，並且提交 pelican 專案中的檔案和第一篇文章的 markdown 檔：</p>
+<div class="highlight"><pre><span></span>$ git init
+$ git add Makefile develop_server.sh *.py content/
+$ git commit -m <span class="s2">&quot;first commit&quot;</span>
+</pre></div>
+
+
+<p>注意我們並沒有將 output 資料夾加入，因為那個資料夾每次用 Pelican 都會改變，並不是我們網站專案的 source。</p>
+<h3>在 GitHub 上建 repo</h3>
+<p>到 GitHub 網頁建立兩個 repo，一個是放 source 的，一個就是一開始提到的 GitHub 個人網站的 repo。個人網站的 repo 名稱是固定的，也就是 \&lt;username>.github.io，而放 source 的 repo 我把它叫做 \&lt;username>.github.io.src。</p>
+<h3>將 GitHub 的 repo 加入 Pelican project repo 的 remote</h3>
+<p>回到終端機，確認 working directory 是在剛剛建立的 blog 資料夾。接著要將我們的 Pelican repo 加入兩個 remote，一個是 origin，也就是我們的\&lt;username>.github.io.src；另一個是 github，也就是我們個人網頁的 repo。 </p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/blog
+$ git remote add origin &lt;username&gt;.github.io.src
+$ git remote add github &lt;username&gt;.github.io
+</pre></div>
+
+
+<h3>發布文章到 GitHub User Page</h3>
+<p>現在我們可以照著 Pelican 文件的方法，將 output 的檔案上傳到 GitHub。由於我們已經將 GitHub User Page 的 repo 加入 remote，所以可以少打一些字：</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">github</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+</pre></div>
+
+
+<p>還記得  ghp-import 會將 output 的資料更新至 gh-pages 的 branch（如果沒有這個 branch 則會自動幫你建立），所以我們只要把 gh-pages 的內容上傳到 github 的 master，就等於是把 output 資料夾的東西丟上去了！</p>
+<p>現在用瀏覽器輸入你的個人網頁網址，也就是 http://\&lt;username>.github.io，應該就會看到你的網頁有內容囉！</p>
+<p>下面這張圖是各個 repo 之間的關係圖。方形匡起來的代表一個 repo；箭頭代表 branch；虛線代表 local  端的 branch 和 remote 端同步。</p>
+<p><img src="images/repo_relationship.png" /></p>
+<p>在 local 端會有兩個 branch：master &amp; ph-pages，ph-pages 是 <code>ghp-import</code> 幫我們建的而且我們不必手動更新這個 branch，而是透過 <code>ghp-impott output</code> 這個指令更新。</p>
+<h3>上傳 source 的更新</h3>
+<p>如果想要在另一台電腦上寫文章和發布，兩台電腦的 Pelican project 必須同步，這時候就可以利用 <username>.github.io.src。要將現在這台電腦的 Pelican project 更新至 GitHub，可以提交以後直接下 <code>$ git push origin</code> 的指令，當然如果 GitHub 上有還沒有同步的內容，必須先 pull 下來、merge 以後再 push（基本的 git 操作）。</p>
+<h3>改寫 Makefile 讓發布文章更容易</h3>
+<p>Pelican 自動產生的 makefile 中有一個 github 的 target，這個是用在發佈 GitHub Project  Page 的。現在因為我們是 User Page，所以我們來小小改寫一下，讓他符合我們的發佈動作。打開 Makefile 之後找到 github 這個 target：</p>
+<div class="highlight"><pre><span></span><span class="n">github</span><span class="p">:</span> <span class="n">publish</span>
+    <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;Generate Pelican site&quot;</span> <span class="o">-</span><span class="n">b</span> <span class="err">$</span><span class="p">(</span><span class="n">GITHUB_PAGES_BRANCH</span><span class="p">)</span> <span class="err">$</span><span class="p">(</span><span class="n">OUTPUTDIR</span><span class="p">)</span>
+    <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="err">$</span><span class="p">(</span><span class="n">GITHUB_PAGES_BRANCH</span><span class="p">)</span>
+</pre></div>
+
+
+<p>把它改成：</p>
+<div class="highlight"><pre><span></span><span class="n">github</span><span class="p">:</span> <span class="n">publish</span>
+    <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;Generate Pelican site&quot;</span> <span class="n">output</span>
+    <span class="n">git</span> <span class="n">push</span> <span class="n">github</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+</pre></div>
+
+
+<p>存檔。
+之後要發布文章，就只要下 <code>$ make github</code> 就可以囉！</p>
+    </article>
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Blog powered by <a href="http://getpelican.com">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://hauhsu.github.io/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://hauhsu.github.io/theme/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="http://hauhsu.github.io/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
