@@ -109,9 +109,10 @@
         <h2>GitHub Pages 簡介</h2>
 <p>GitHub 有提供一個簡單的方法讓使用者架設個人網站 (User Pages) 或專案網站 (Project Pages)。
 這篇主要是講個人網站的部分，其實也就是這個網站怎麼架的:p。<br />
-要使用 GitHub 的 User Page，首先要在 GitHub 上建立一個 repo，而且名稱必須是 \&lt;username>.github.io。
+要使用 GitHub 的 User Page，首先要在 GitHub 上建立一個 repo，而且名稱必須是
+&lt;username&gt;.github.io。
 我的帳號是hauhsu，所以 repo 名稱就是 hauhsu.github.io。
-接著只要將靜態網頁放到這個 repo 的 master branch，就可以透過網址 http://\&lt;username>.github.io 連到你的網站，所以這個網站的網址才會是 http://hauhsu.github.io。</p>
+接著只要將靜態網頁放到這個 repo 的 master branch，就可以透過網址 http://&lt;username&gt;.github.io 連到你的網站，所以這個網站的網址才會是 http://hauhsu.github.io。</p>
 <h2>Pelican 文件的說明...不太清楚</h2>
 <p>Pelican 產生出來的靜態網頁會放在 output 資料夾，所以只要把 output 內的東西放到你個人網站的 repo 的 master branch 就行了。
 在 Pelican 的官方文件中，<a href="http://docs.getpelican.com/en/3.6.3/tips.html#publishing-to-github">有一段</a>是說明如何將產生出來的靜態網頁放上 Github pages。文件的做法是利用 <a href="https://github.com/davisp/ghp-import">ghp-import</a> 這個小工具，他可以幫你把某個資料夾的內容更新到當本地端 repo 的 gh-pages branch。</p>
@@ -210,9 +211,9 @@ $ git commit -m <span class="s2">&quot;first commit&quot;</span>
 
 <p>注意我們並沒有將 output 資料夾加入，因為那個資料夾每次用 Pelican 都會改變，並不是我們網站專案的 source。</p>
 <h3>在 GitHub 上建 repo</h3>
-<p>到 GitHub 網頁建立兩個 repo，一個是放 source 的，一個就是一開始提到的 GitHub 個人網站的 repo。個人網站的 repo 名稱是固定的，也就是 \&lt;username>.github.io，而放 source 的 repo 我把它叫做 \&lt;username>.github.io.src。</p>
+<p>到 GitHub 網頁建立兩個 repo，一個是放 source 的，一個就是一開始提到的 GitHub 個人網站的 repo。個人網站的 repo 名稱是固定的，也就是 &lt;username&gt;.github.io，而放 source 的 repo 我把它叫做 &lt;username&gt;.github.io.src。</p>
 <h3>將 GitHub 的 repo 加入 Pelican project repo 的 remote</h3>
-<p>回到終端機，確認 working directory 是在剛剛建立的 blog 資料夾。接著要將我們的 Pelican repo 加入兩個 remote，一個是 origin，也就是我們的\&lt;username>.github.io.src；另一個是 github，也就是我們個人網頁的 repo。 </p>
+<p>回到終端機，確認 working directory 是在剛剛建立的 blog 資料夾。接著要將我們的 Pelican repo 加入兩個 remote，一個是 origin，也就是我們的&lt;username&gt;.github.io.src；另一個是 github，也就是我們個人網頁的 repo。 </p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/blog
 $ git remote add origin &lt;username&gt;.github.io.src
 $ git remote add github &lt;username&gt;.github.io
@@ -227,7 +228,7 @@ $ git remote add github &lt;username&gt;.github.io
 
 
 <p>還記得  ghp-import 會將 output 的資料更新至 gh-pages 的 branch（如果沒有這個 branch 則會自動幫你建立），所以我們只要把 gh-pages 的內容上傳到 github 的 master，就等於是把 output 資料夾的東西丟上去了！</p>
-<p>現在用瀏覽器輸入你的個人網頁網址，也就是 http://\&lt;username>.github.io，應該就會看到你的網頁有內容囉！</p>
+<p>現在用瀏覽器輸入你的個人網頁網址，也就是 http://&lt;username&gt;.github.io，應該就會看到你的網頁有內容囉！</p>
 <p>下面這張圖是各個 repo 之間的關係圖。方形匡起來的代表一個 repo；箭頭代表 branch；虛線代表 local  端的 branch 和 remote 端同步。</p>
 <p><img src="images/repo_relationship.png" /></p>
 <p>在 local 端會有兩個 branch：master &amp; ph-pages，ph-pages 是 <code>ghp-import</code> 幫我們建的而且我們不必手動更新這個 branch，而是透過 <code>ghp-impott output</code> 這個指令更新。</p>
