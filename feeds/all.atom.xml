@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/all.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2016-06-02T16:00:00+08:00</updated><entry><title>用 Pelican 在 GitHub 上建立 Blog</title><link href="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html" rel="alternate"></link><published>2016-06-02T16:00:00+08:00</published><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-06-02:build-blog-on-github-pages-using-pelican.html</id><summary type="html">&lt;p&gt;這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo
-來做版本管理。在 GitHub 上我們會建立兩個 repo，一個用來存 Pelican
+<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/all.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2016-06-04T10:22:00+08:00</updated><entry><title>用 Pelican 在 GitHub 上建立 Blog</title><link href="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html" rel="alternate"></link><published>2016-06-04T10:22:00+08:00</published><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-06-02:build-blog-on-github-pages-using-pelican.html</id><summary type="html">&lt;p&gt;這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo
+來做版本管理。而在 GitHub 上我們會建立兩個 repo，一個用來存 Pelican
 專案的程式碼，讓我們可以在不同的電腦上編輯和發布文章；另一個 repo 是 GitHub User
 Page，用來放架好的網站。&lt;/p&gt;
 &lt;h2&gt;GitHub Pages 簡介&lt;/h2&gt;
@@ -128,9 +128,7 @@ $ git push github gh-pages:master
 &lt;p&gt;現在用瀏覽器輸入你的個人網頁網址，也就是 http://&amp;lt;username&amp;gt;.github.io，應該就會看到你的網頁有內容囉！&lt;/p&gt;
 &lt;p&gt;下面這張圖是各個 repo 之間的關係圖。方形匡起來的代表一個 repo；箭頭代表 branch；虛線代表 local  端的 branch 和 remote 端同步。&lt;/p&gt;
 &lt;p&gt;&lt;img src="images/repo_relationship.png" /&gt;&lt;/p&gt;
-&lt;p&gt;在 local 端會有兩個 branch：master &amp;amp; ph-pages，ph-pages 是 &lt;code&gt;ghp-import&lt;/code&gt; 幫我們建的而且我們不必手動更新這個 branch，而是透過 &lt;code&gt;ghp-impott output&lt;/code&gt; 這個指令更新。&lt;/p&gt;
-&lt;h3&gt;上傳 source 的更新&lt;/h3&gt;
-&lt;p&gt;如果想要在另一台電腦上寫文章和發布，兩台電腦的 Pelican project 必須同步，這時候就可以利用 &lt;username&gt;.github.io.src。要將現在這台電腦的 Pelican project 更新至 GitHub，可以提交以後直接下 &lt;code&gt;$ git push origin&lt;/code&gt; 的指令，當然如果 GitHub 上有還沒有同步的內容，必須先 pull 下來、merge 以後再 push（基本的 git 操作）。&lt;/p&gt;
+&lt;p&gt;在 local 端會有兩個 branch：master &amp;amp; ph-pages，ph-pages 是 &lt;code&gt;ghp-import&lt;/code&gt; 幫我們建的而且我們不必手動更新這個 branch，而是透過 &lt;code&gt;ghp-import output&lt;/code&gt; 這個指令更新。&lt;/p&gt;
 &lt;h3&gt;改寫 Makefile 讓發布文章更容易&lt;/h3&gt;
 &lt;p&gt;Pelican 自動產生的 makefile 中有一個 github 的 target，這個是用在發佈 GitHub Project  Page 的。現在因為我們是 User Page，所以我們來小小改寫一下，讓他符合我們的發佈動作。打開 Makefile 之後找到 github 這個 target：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;github&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;publish&lt;/span&gt;
@@ -147,4 +145,28 @@ $ git push github gh-pages:master
 
 
 &lt;p&gt;存檔。
-之後要發布文章，就只要下 &lt;code&gt;$ make github&lt;/code&gt; 就可以囉！&lt;/p&gt;</summary><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="python"></category></entry></feed>
+之後要發布文章，就只要下 &lt;code&gt;$ make github&lt;/code&gt; 就可以囉！&lt;/p&gt;
+&lt;h3&gt;在另一台電腦上編輯/發布文章&lt;/h3&gt;
+&lt;p&gt;如果想要在另一台電腦上寫文章和發布，兩台電腦的 Pelican project 必須同步，而且要將上面提到的關係在另一台電腦上重建。&lt;/p&gt;
+&lt;p&gt;&lt;img src="images/repo_relationship_2_computers.png" /&gt;&lt;/p&gt;
+&lt;p&gt;首先將現在這台電腦的 Pelican project 更新至 GitHub，可以提交以後直接下 
+&lt;code&gt;$ git push origin&lt;/code&gt; 的指令。&lt;/p&gt;
+&lt;p&gt;在另一台電腦上，我們先將 &amp;lt;username&amp;gt;.github.io.src clone 下來：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git clone &amp;lt;username&amp;gt;.github.io.src
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接著我們要重建每個 repo 間的關係。
+首先將 &amp;lt;username&amp;gt;.github.io 加入 remote 並且 fetch：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git remote add github git@github.com:&amp;lt;username&amp;gt;/&amp;lt;username&amp;gt;.github.io.git 
+$ git fetch github
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;讓 ph-pages 這個 branch 追蹤 &amp;lt;username&amp;gt;.github.io.git 的 master branch：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git branch --track gh-pages github/master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;到這邊我們就已經在另一台電腦上把上面那張 repo 關係圖重建完成。
+要預覽或發布文章，一樣用之前的 make 指令即可！&lt;/p&gt;</summary><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="python"></category></entry></feed>
