@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/note.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2016-06-02T16:00:00+08:00</updated><entry><title>用 Pelican 在 GitHub 上建立 Blog</title><link href="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html" rel="alternate"></link><published>2016-06-02T16:00:00+08:00</published><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-06-02:build-blog-on-github-pages-using-pelican.html</id><summary type="html">&lt;h2&gt;GitHub Pages 簡介&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/note.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2016-06-02T16:00:00+08:00</updated><entry><title>用 Pelican 在 GitHub 上建立 Blog</title><link href="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html" rel="alternate"></link><published>2016-06-02T16:00:00+08:00</published><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-06-02:build-blog-on-github-pages-using-pelican.html</id><summary type="html">&lt;p&gt;這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo
+來做版本管理。在 GitHub 上我們會建立兩個 repo，一個用來存 Pelican
+專案的程式碼，讓我們可以在不同的電腦上編輯和發布文章；另一個 repo 是 GitHub User
+Page，用來放架好的網站。&lt;/p&gt;
+&lt;h2&gt;GitHub Pages 簡介&lt;/h2&gt;
 &lt;p&gt;GitHub 有提供一個簡單的方法讓使用者架設個人網站 (User Pages) 或專案網站 (Project Pages)。
 這篇主要是講個人網站的部分，其實也就是這個網站怎麼架的:p。&lt;br /&gt;
 要使用 GitHub 的 User Page，首先要在 GitHub 上建立一個 repo，而且名稱必須是
@@ -9,9 +13,9 @@
 &lt;h2&gt;Pelican 文件的說明...不太清楚&lt;/h2&gt;
 &lt;p&gt;Pelican 產生出來的靜態網頁會放在 output 資料夾，所以只要把 output 內的東西放到你個人網站的 repo 的 master branch 就行了。
 在 Pelican 的官方文件中，&lt;a href="http://docs.getpelican.com/en/3.6.3/tips.html#publishing-to-github"&gt;有一段&lt;/a&gt;是說明如何將產生出來的靜態網頁放上 Github pages。文件的做法是利用 &lt;a href="https://github.com/davisp/ghp-import"&gt;ghp-import&lt;/a&gt; 這個小工具，他可以幫你把某個資料夾的內容更新到當本地端 repo 的 gh-pages branch。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;pelicanconf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;output&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="nd"&gt;@github.com&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;/&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;.&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;gh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ pelican content -o output -s pelicanconf.py
+$ ghp-import output
+$ git push git@github.com:&amp;lt;username&amp;gt;/&amp;lt;username&amp;gt;.github.io.git gh-pages:master
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -64,8 +68,8 @@ needed by Pelican.
 
 
 &lt;p&gt;當問到你會不會用 GitHub Pages 的時候要選 y&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; Do you want to upload your website using GitHub Pages? (y/N) y
-&amp;gt; Is this your personal page (username.github.io)? (y/N) y
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; Do you want to upload your website using GitHub Pages? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; y
+&amp;gt; Is this your personal page &lt;span class="o"&gt;(&lt;/span&gt;username.github.io&lt;span class="o"&gt;)&lt;/span&gt;? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; y
 Done. Your new project is available at ~/blog 
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -108,15 +112,15 @@ $ git commit -m &lt;span class="s2"&gt;&amp;quot;first commit&amp;quot;&lt;/span
 &lt;h3&gt;將 GitHub 的 repo 加入 Pelican project repo 的 remote&lt;/h3&gt;
 &lt;p&gt;回到終端機，確認 working directory 是在剛剛建立的 blog 資料夾。接著要將我們的 Pelican repo 加入兩個 remote，一個是 origin，也就是我們的&amp;lt;username&amp;gt;.github.io.src；另一個是 github，也就是我們個人網頁的 repo。 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/blog
-$ git remote add origin &amp;lt;username&amp;gt;.github.io.src
-$ git remote add github &amp;lt;username&amp;gt;.github.io
+$ git remote add origin git@github.com:&amp;lt;username&amp;gt;/&amp;lt;username&amp;gt;.github.io.src.git
+$ git remote add github git@github.com:&amp;lt;username&amp;gt;/&amp;lt;username&amp;gt;.github.io.git 
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;發布文章到 GitHub User Page&lt;/h3&gt;
 &lt;p&gt;現在我們可以照著 Pelican 文件的方法，將 output 的檔案上傳到 GitHub。由於我們已經將 GitHub User Page 的 repo 加入 remote，所以可以少打一些字：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;output&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt; &lt;span class="n"&gt;gh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ghp-import output
+$ git push github gh-pages:master
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -129,16 +133,16 @@ $ git remote add github &amp;lt;username&amp;gt;.github.io
 &lt;p&gt;如果想要在另一台電腦上寫文章和發布，兩台電腦的 Pelican project 必須同步，這時候就可以利用 &lt;username&gt;.github.io.src。要將現在這台電腦的 Pelican project 更新至 GitHub，可以提交以後直接下 &lt;code&gt;$ git push origin&lt;/code&gt; 的指令，當然如果 GitHub 上有還沒有同步的內容，必須先 pull 下來、merge 以後再 push（基本的 git 操作）。&lt;/p&gt;
 &lt;h3&gt;改寫 Makefile 讓發布文章更容易&lt;/h3&gt;
 &lt;p&gt;Pelican 自動產生的 makefile 中有一個 github 的 target，這個是用在發佈 GitHub Project  Page 的。現在因為我們是 User Page，所以我們來小小改寫一下，讓他符合我們的發佈動作。打開 Makefile 之後找到 github 這個 target：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;publish&lt;/span&gt;
-    &lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Generate Pelican site&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GITHUB_PAGES_BRANCH&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;OUTPUTDIR&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GITHUB_PAGES_BRANCH&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;github&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;publish&lt;/span&gt;
+    ghp-import -m &lt;span class="s2"&gt;&amp;quot;Generate Pelican site&amp;quot;&lt;/span&gt; -b &lt;span class="k"&gt;$(&lt;/span&gt;GITHUB_PAGES_BRANCH&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;OUTPUTDIR&lt;span class="k"&gt;)&lt;/span&gt;
+    git push origin &lt;span class="k"&gt;$(&lt;/span&gt;GITHUB_PAGES_BRANCH&lt;span class="k"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;把它改成：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;publish&lt;/span&gt;
-    &lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Generate Pelican site&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;
-    &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt; &lt;span class="n"&gt;gh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;github&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;publish&lt;/span&gt;
+    ghp-import -m &lt;span class="s2"&gt;&amp;quot;Generate Pelican site&amp;quot;&lt;/span&gt; output
+    git push github gh-pages:master
 &lt;/pre&gt;&lt;/div&gt;
 
 

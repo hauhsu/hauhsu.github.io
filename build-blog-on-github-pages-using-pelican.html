@@ -106,7 +106,11 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <h2>GitHub Pages 簡介</h2>
+        <p>這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo
+來做版本管理。在 GitHub 上我們會建立兩個 repo，一個用來存 Pelican
+專案的程式碼，讓我們可以在不同的電腦上編輯和發布文章；另一個 repo 是 GitHub User
+Page，用來放架好的網站。</p>
+<h2>GitHub Pages 簡介</h2>
 <p>GitHub 有提供一個簡單的方法讓使用者架設個人網站 (User Pages) 或專案網站 (Project Pages)。
 這篇主要是講個人網站的部分，其實也就是這個網站怎麼架的:p。<br />
 要使用 GitHub 的 User Page，首先要在 GitHub 上建立一個 repo，而且名稱必須是
@@ -116,9 +120,9 @@
 <h2>Pelican 文件的說明...不太清楚</h2>
 <p>Pelican 產生出來的靜態網頁會放在 output 資料夾，所以只要把 output 內的東西放到你個人網站的 repo 的 master branch 就行了。
 在 Pelican 的官方文件中，<a href="http://docs.getpelican.com/en/3.6.3/tips.html#publishing-to-github">有一段</a>是說明如何將產生出來的靜態網頁放上 Github pages。文件的做法是利用 <a href="https://github.com/davisp/ghp-import">ghp-import</a> 這個小工具，他可以幫你把某個資料夾的內容更新到當本地端 repo 的 gh-pages branch。</p>
-<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">pelican</span> <span class="n">content</span> <span class="o">-</span><span class="n">o</span> <span class="n">output</span> <span class="o">-</span><span class="n">s</span> <span class="n">pelicanconf</span><span class="o">.</span><span class="n">py</span>
-<span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
-<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">git</span><span class="nd">@github.com</span><span class="p">:</span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">username</span><span class="o">&gt;.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">git</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+<div class="highlight"><pre><span></span>$ pelican content -o output -s pelicanconf.py
+$ ghp-import output
+$ git push git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git gh-pages:master
 </pre></div>
 
 
@@ -171,8 +175,8 @@ needed by Pelican.
 
 
 <p>當問到你會不會用 GitHub Pages 的時候要選 y</p>
-<div class="highlight"><pre><span></span>&gt; Do you want to upload your website using GitHub Pages? (y/N) y
-&gt; Is this your personal page (username.github.io)? (y/N) y
+<div class="highlight"><pre><span></span>&gt; Do you want to upload your website using GitHub Pages? <span class="o">(</span>y/N<span class="o">)</span> y
+&gt; Is this your personal page <span class="o">(</span>username.github.io<span class="o">)</span>? <span class="o">(</span>y/N<span class="o">)</span> y
 Done. Your new project is available at ~/blog 
 </pre></div>
 
@@ -215,15 +219,15 @@ $ git commit -m <span class="s2">&quot;first commit&quot;</span>
 <h3>將 GitHub 的 repo 加入 Pelican project repo 的 remote</h3>
 <p>回到終端機，確認 working directory 是在剛剛建立的 blog 資料夾。接著要將我們的 Pelican repo 加入兩個 remote，一個是 origin，也就是我們的&lt;username&gt;.github.io.src；另一個是 github，也就是我們個人網頁的 repo。 </p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/blog
-$ git remote add origin &lt;username&gt;.github.io.src
-$ git remote add github &lt;username&gt;.github.io
+$ git remote add origin git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.src.git
+$ git remote add github git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git 
 </pre></div>
 
 
 <h3>發布文章到 GitHub User Page</h3>
 <p>現在我們可以照著 Pelican 文件的方法，將 output 的檔案上傳到 GitHub。由於我們已經將 GitHub User Page 的 repo 加入 remote，所以可以少打一些字：</p>
-<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
-<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">github</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+<div class="highlight"><pre><span></span>$ ghp-import output
+$ git push github gh-pages:master
 </pre></div>
 
 
@@ -236,16 +240,16 @@ $ git remote add github &lt;username&gt;.github.io
 <p>如果想要在另一台電腦上寫文章和發布，兩台電腦的 Pelican project 必須同步，這時候就可以利用 <username>.github.io.src。要將現在這台電腦的 Pelican project 更新至 GitHub，可以提交以後直接下 <code>$ git push origin</code> 的指令，當然如果 GitHub 上有還沒有同步的內容，必須先 pull 下來、merge 以後再 push（基本的 git 操作）。</p>
 <h3>改寫 Makefile 讓發布文章更容易</h3>
 <p>Pelican 自動產生的 makefile 中有一個 github 的 target，這個是用在發佈 GitHub Project  Page 的。現在因為我們是 User Page，所以我們來小小改寫一下，讓他符合我們的發佈動作。打開 Makefile 之後找到 github 這個 target：</p>
-<div class="highlight"><pre><span></span><span class="n">github</span><span class="p">:</span> <span class="n">publish</span>
-    <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;Generate Pelican site&quot;</span> <span class="o">-</span><span class="n">b</span> <span class="err">$</span><span class="p">(</span><span class="n">GITHUB_PAGES_BRANCH</span><span class="p">)</span> <span class="err">$</span><span class="p">(</span><span class="n">OUTPUTDIR</span><span class="p">)</span>
-    <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="err">$</span><span class="p">(</span><span class="n">GITHUB_PAGES_BRANCH</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nf">github</span><span class="o">:</span> <span class="n">publish</span>
+    ghp-import -m <span class="s2">&quot;Generate Pelican site&quot;</span> -b <span class="k">$(</span>GITHUB_PAGES_BRANCH<span class="k">)</span> <span class="k">$(</span>OUTPUTDIR<span class="k">)</span>
+    git push origin <span class="k">$(</span>GITHUB_PAGES_BRANCH<span class="k">)</span>
 </pre></div>
 
 
 <p>把它改成：</p>
-<div class="highlight"><pre><span></span><span class="n">github</span><span class="p">:</span> <span class="n">publish</span>
-    <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;Generate Pelican site&quot;</span> <span class="n">output</span>
-    <span class="n">git</span> <span class="n">push</span> <span class="n">github</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+<div class="highlight"><pre><span></span><span class="nf">github</span><span class="o">:</span> <span class="n">publish</span>
+    ghp-import -m <span class="s2">&quot;Generate Pelican site&quot;</span> output
+    git push github gh-pages:master
 </pre></div>
 
 
@@ -283,7 +287,7 @@ $ git remote add github &lt;username&gt;.github.io
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
-                            <a href="">
+                            <a href="http://twitter.com/hau_hsu">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -291,7 +295,7 @@ $ git remote add github &lt;username&gt;.github.io
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="http://facebook.com/howard0617">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -299,7 +303,7 @@ $ git remote add github &lt;username&gt;.github.io
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="http://github.com/hauhsu">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
