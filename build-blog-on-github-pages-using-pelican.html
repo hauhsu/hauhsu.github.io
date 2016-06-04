@@ -5,14 +5,12 @@
             <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-        <title>HauToLive</title>
+
+        <title>用 Pelican 在 GitHub 上建立 Blog</title>
 
             <link href="http://hauhsu.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Full Atom Feed" />
             <link href="http://hauhsu.github.io/feeds/note.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Categories Atom Feed" />
-
         <!-- Bootstrap Core CSS -->
         <link href="http://hauhsu.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,10 +20,11 @@
         <!-- Code highlight color scheme -->
             <link href="http://hauhsu.github.io/theme/css/code_blocks/darkly.css" rel="stylesheet">
 
+
         <!-- Custom Fonts -->
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,23 +35,26 @@
 
 
 
+        <meta name="description" content="這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo 來做版本管理。而在 GitHub 上我們會建立兩個 repo，一個用來存 Pelican 專案的程式碼，讓我們可以在不同的電腦上編輯和發布文章；另一個 repo 是 GitHub User ...">
 
-        <meta name="tags" contents="pelican" />
-        <meta name="tags" contents="blog" />
-        <meta name="tags" contents="git" />
-        <meta name="tags" contents="python" />
+        <meta name="author" content="Hau Hsu">
 
+        <meta name="tags" content="pelican">
+        <meta name="tags" content="blog">
+        <meta name="tags" content="git">
+        <meta name="tags" content="python">
 
-			<meta property="og:locale" content="en">
+	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="HauToLive">
 
 	<meta property="og:type" content="article">
-	<meta property="article:author" content="">
+            <meta property="article:author" content="http://hauhsu.github.io/author/hau-hsu.html">
 	<meta property="og:url" content="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html">
 	<meta property="og:title" content="用 Pelican 在 GitHub 上建立 Blog">
-	<meta property="og:description" content="">
-	<meta property="og:image" content="http://hauhsu.github.io/">
 	<meta property="article:published_time" content="2016-06-02 16:00:00+08:00">
+            <meta property="og:description" content="這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo 來做版本管理。而在 GitHub 上我們會建立兩個 repo，一個用來存 Pelican 專案的程式碼，讓我們可以在不同的電腦上編輯和發布文章；另一個 repo 是 GitHub User ...">
+
+            <meta property="og:image" content="http://hauhsu.github.io/theme/images/post-bg.jpg">
 </head>
 
 <body>
@@ -93,6 +95,7 @@
                                 <a href="http://hauhsu.github.io/author/hau-hsu.html">Hau Hsu</a>
                              on Thu 02 June 2016
                         </span>
+                            <span class="meta">Updated on Sat 04 June 2016</span>
                         
                     </div>
                 </div>
@@ -279,6 +282,13 @@ $ git fetch github
 要預覽或發布文章，一樣用之前的 make 指令即可！</p>
     </article>
 
+        <div class="tags">
+            <p>tags: <a href="http://hauhsu.github.io/tag/pelican.html">pelican</a>, <a href="http://hauhsu.github.io/tag/blog.html">blog</a>, <a href="http://hauhsu.github.io/tag/git.html">git</a>, <a href="http://hauhsu.github.io/tag/python.html">python</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
     <hr>
 
         <div class="comments">
@@ -308,34 +318,27 @@ $ git fetch github
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
-                        <li>
-                            <a href="http://twitter.com/hau_hsu">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://facebook.com/howard0617">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://github.com/hauhsu">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
+                            <li>
+                                <a href="https://github.com/hauhsu">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://facebook.com/howard0617">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
                     </ul>
-                    <p class="copyright text-muted">Blog powered by <a href="http://getpelican.com">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.</p>
-                </div>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
             </div>
         </div>
     </footer>
@@ -346,8 +349,8 @@ $ git fetch github
     <!-- Bootstrap Core JavaScript -->
     <script src="http://hauhsu.github.io/theme/js/bootstrap.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="http://hauhsu.github.io/theme/js/clean-blog.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="http://hauhsu.github.io/theme/js/clean-blog.min.js"></script>
 
 <script type="text/javascript">
     var disqus_shortname = 'hautolive';
