@@ -2,14 +2,15 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8">
+            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>HauToLive - Archives</title>
+        <title>SSH 隧道</title>
 
             <link href="http://hauhsu.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Full Atom Feed" />
+            <link href="http://hauhsu.github.io/feeds/note.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Categories Atom Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://hauhsu.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -32,8 +33,25 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-                <meta property="og:locale" content="">
+
+
+        <meta name="description" content="SSH 埠映射 (SSH port forwarding) SSH 的功能很多，除了單純的連線遠端登入以外， 也可以在本地端和遠端的伺服器建立隧道 (tunnel) 並且進行埠映射 (port forwarding)，將訪問本地端的封包透過隧道轉送到遠端的機器上。 ...">
+
+        <meta name="author" content="Hau Hsu">
+
+        <meta name="tags" content="ssh">
+
+	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="HauToLive">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://hauhsu.github.io/author/hau-hsu.html">
+	<meta property="og:url" content="http://hauhsu.github.io/ssh-tunnel.html">
+	<meta property="og:title" content="SSH 隧道">
+	<meta property="article:published_time" content="2016-07-31 09:00:00+08:00">
+            <meta property="og:description" content="SSH 埠映射 (SSH port forwarding) SSH 的功能很多，除了單純的連線遠端登入以外， 也可以在本地端和遠端的伺服器建立隧道 (tunnel) 並且進行埠映射 (port forwarding)，將訪問本地端的封包透過隧道轉送到遠端的機器上。 ...">
+
+            <meta property="og:image" content="http://hauhsu.github.io/theme/images/post-bg.jpg">
 </head>
 
 <body>
@@ -64,12 +82,17 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('http://hauhsu.github.io/theme/images/home-bg.jpg')">
+        <header class="intro-header" style="background-image: url('http://hauhsu.github.io/theme/images/post-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Archives for HauToLive</h1>
+                        <h1>SSH 隧道</h1>
+                        <span class="meta">Posted by
+                                <a href="http://hauhsu.github.io/author/hau-hsu.html">Hau Hsu</a>
+                             on Sun 31 July 2016
+                        </span>
+                        
                     </div>
                 </div>
             </div>
@@ -80,15 +103,46 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <dl>
-            <dt>Tue 20 September 2016</dt>
-            <dd><a href="http://hauhsu.github.io/scala-simple-file-read-write.html">Scala 的簡單檔案讀寫練習</a></dd>
-            <dt>Sun 31 July 2016</dt>
-            <dd><a href="http://hauhsu.github.io/ssh-tunnel.html">SSH 隧道</a></dd>
-            <dt>Thu 02 June 2016</dt>
-            <dd><a href="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html">用 Pelican 在 GitHub 上建立 Blog</a></dd>
-        <hr>
-    </dl>
+    <!-- Post Content -->
+    <article>
+        <h2>SSH 埠映射 (SSH port forwarding)</h2>
+<p>SSH 的功能很多，除了單純的連線遠端登入以外，
+也可以在本地端和遠端的伺服器建立隧道 (tunnel) 並且進行埠映射 (port forwarding)，將訪問本地端的封包透過隧道轉送到遠端的機器上。</p>
+<h2>範例情境</h2>
+<p>假設我們正在開發一個網站，因為安全性問題，在正式發佈以前這個網站只能透過某個跳板機連線。若想用自己電腦上的瀏覽器連線測試，就必須想辦法先連到跳板機再到網站伺服器上。這該如何做到？</p>
+<p><img src="images/scenario_how.png" /></p>
+<p>首先，我們在終端機輸入以下指令：  </p>
+<p><code>$ ssh -L 9999:localhost:9999 user@jump_server ssh -L 9999:localhost:80 user@web_server</code></p>
+<p>指令前半段 <code>ssh -L 9999:localhost:9999 user@jump_server</code> 的意思是，我們在本地端建立一個埠映射，所有要連線到本地 port 9999 的封包都會被轉送到 jump_server 上的 port 9999，我們可以把這個叫做 SSH 隧道 (SSH tunnel)。而後半段 <code>ssh -L 9999:localhost:80 user@web_server</code> 意思差不多，就是建立 jump_server 到 web_server 的 ssh tunnel。
+隧道建立好之後，我們就可以在瀏覽器上的網址列輸入<code>localhost:9999</code>。這時瀏覽器會送出請求到本地端的 port 9999，埠映射會把請求送到跳板機上，而跳板機上的埠映射又把請求繼續轉送到真正的網頁伺服器上，如下圖所示。</p>
+<p><img src="images/scenario.png" /></p>
+<p>如此一來，我們就能夠安全的用自己的電腦測試網頁了。</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://hauhsu.github.io/tag/ssh.html">ssh</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'hautolive';
+                var disqus_identifier = 'ssh-tunnel.html';
+                var disqus_url = 'http://hauhsu.github.io/ssh-tunnel.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//hautolive.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
             </div>
         </div>
     </div>
