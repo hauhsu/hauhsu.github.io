@@ -1,113 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-            <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Scala 的簡單檔案讀寫練習 | HauToLive
+</title>
+  <link rel="canonical" href="http://hauhsu.github.io/scala-simple-file-read-write.html">
 
 
-        <title>Scala 的簡單檔案讀寫練習</title>
+  <link rel="stylesheet" href="http://hauhsu.github.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://hauhsu.github.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://hauhsu.github.io/theme/css/pygments/autumn.min.css">
+  <link rel="stylesheet" href="http://hauhsu.github.io/theme/css/theme.css">
 
-            <link href="http://hauhsu.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Full Atom Feed" />
-            <link href="http://hauhsu.github.io/feeds/note.atom.xml" type="application/atom+xml" rel="alternate" title="HauToLive Categories Atom Feed" />
-        <!-- Bootstrap Core CSS -->
-        <link href="http://hauhsu.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="http://hauhsu.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
-
-        <!-- Code highlight color scheme -->
-            <link href="http://hauhsu.github.io/theme/css/code_blocks/darkly.css" rel="stylesheet">
-
-
-        <!-- Custom Fonts -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="http://hauhsu.github.io/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="http://hauhsu.github.io/feeds/programming.atom.xml">  
+  <meta name="description" content="Scala 簡單練習筆記">
+  <script>
+    (function(i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o);
+      a.async = 1;
+      a.src = g;
+      m = s.getElementsByTagName(o)[0];
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-6890763-2', 'auto');
+    ga('send', 'pageview');
+  </script>
 
 
-
-        <meta name="description" content="初學 scala，覺得困難。 沒想到只是要寫個簡單的程式（讓使用者輸入一個檔名，把那個檔案內容再寫到另一個檔案）， 居然要搞半個小時。 import java.io import scala.io.Source object Demo { def ...">
-
-        <meta name="author" content="Hau Hsu">
-
-        <meta name="tags" content="scala">
-
-	                <meta property="og:locale" content="">
-		<meta property="og:site_name" content="HauToLive">
-
-	<meta property="og:type" content="article">
-            <meta property="article:author" content="http://hauhsu.github.io/author/hau-hsu.html">
-	<meta property="og:url" content="http://hauhsu.github.io/scala-simple-file-read-write.html">
-	<meta property="og:title" content="Scala 的簡單檔案讀寫練習">
-	<meta property="article:published_time" content="2016-09-20 00:00:00+08:00">
-            <meta property="og:description" content="初學 scala，覺得困難。 沒想到只是要寫個簡單的程式（讓使用者輸入一個檔名，把那個檔案內容再寫到另一個檔案）， 居然要搞半個小時。 import java.io import scala.io.Source object Demo { def ...">
-
-            <meta property="og:image" content="http://hauhsu.github.io/theme/images/post-bg.jpg">
 </head>
 
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="http://hauhsu.github.io/">HauToLive</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-
-                            <li><a href="http://hauhsu.github.io/pages/about.html">About</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('http://hauhsu.github.io/theme/images/post-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Scala 的簡單檔案讀寫練習</h1>
-                        <span class="meta">Posted by
-                                <a href="http://hauhsu.github.io/author/hau-hsu.html">Hau Hsu</a>
-                             on Tue 20 September 2016
-                        </span>
-                            <span class="meta">Updated on Tue 20 September 2016</span>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
+  <header class="header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!-- Post Content -->
-    <article>
-        <p>初學 scala，覺得困難。
+<div class="row">
+    <div class="col-sm-4">
+      <a href="http://hauhsu.github.io/">
+        <img class="img-fluid rounded" src=http://hauhsu.github.io/images/avatar.jpg alt="HauToLive">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="http://hauhsu.github.io/">HauToLive</a></h1>
+      <p class="text-muted">Hsu Hau's Life</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="http://hauhsu.github.io/pages/about-me.html">About Me</a></li>
+            <li class=" list-inline-item text-muted">|</li>
+          <li class="list-inline-item"><a class="fa fa-github" href="https://github.com/hauhsu" target="_blank"></a></li>
+          <li class="list-inline-item"><a class="fa fa-facebook" href="https://facebook.com/howard0617" target="_blank"></a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Scala 的簡單檔案讀寫練習
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2016-09-20T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          Tue 20 September 2016
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="http://hauhsu.github.io/category/programming.html">programming</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fa fa-files-o"></i>
+              <a href="http://hauhsu.github.io/tag/scala.html">#scala</a>          </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>初學 scala，覺得困難。
 沒想到只是要寫個簡單的程式（讓使用者輸入一個檔名，把那個檔案內容再寫到另一個檔案），
 居然要搞半個小時。</p>
 <div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">java.io</span>
@@ -137,7 +114,7 @@
 </pre></div>
 
 
-<p>Demo 是一個 object，裡面有兩個函式：<code>printToFile</code>和<code>main</code>。<br />
+<p>Demo 是一個 object，裡面有兩個函式：<code>printToFile</code>和<code>main</code>。<br>
 <code>printToFIle</code> 是從 <a href="http://stackoverflow.com/questions/4604237/how-to-write-to-a-file-in-scala">stackoverflow</a> 上的答案抄下來的。這個函式有兩組參數：要寫的檔案和定義你要怎麼寫函式。<code>op</code>是一個函式，會吃一個 java.io.PrintWrriter 的參數，而返回值是 Unit。</p>
 <p>在 main 裡，我們先用 <code>Console.readLine</code> 讓使用者輸入要讀的檔案名稱，將這個名稱存到 <code>infile</code> 變數中。接著用 <code>java.io.File</code> 開啟 outfile.txt。
 接著呼叫 <code>printToFile</code> 函式來將 <code>infile</code> 中的資料寫到 <code>outfile</code>。這邊呼叫的方式有點特別，當某個函式有兩組輸入參數時，scala 允許你用大括號來把第二組參數包起來。這樣如果第二組參數是一個函式時程式會比較好讀。這邊就是一個例子，<code>printToFile</code>的第二個參數是一個函式，而      </p>
@@ -160,9 +137,9 @@
 
 <p><code>p</code> 是一個 <code>java.io.PrintWriter</code>，這個 PrintWriter 是在 <code>printToFile</code> 裡面才被實體化的，在這邊是用 p 來代表這個傳入的 <code>PrintWriter</code>。<code>=&gt;</code>後面就是這個函數做的事情：用 Source.fromFile 打開 infile，然後將檔案裡的每一行用 <code>p</code> 的 <code>print</code> 函式處理。</p>
 <h2>編譯和執行</h2>
-<p>把上面的程式碼存成<code>fileio.scala</code>，然後用以下指令編譯和執行：<br />
-<code>$ scalac fileio.scala</code><br />
-<code>$ echo "aaa\nbbb\nccc\n" &gt; test.txt  #隨便放一些字到test.txt中</code> <br />
+<p>把上面的程式碼存成<code>fileio.scala</code>，然後用以下指令編譯和執行：<br>
+<code>$ scalac fileio.scala</code><br>
+<code>$ echo "aaa\nbbb\nccc\n" &gt; test.txt  #隨便放一些字到test.txt中</code> <br>
 <code>$ scala Demo</code>  </p>
 <p>輸出：</p>
 <div class="highlight"><pre><span></span>Please enter input file name: test.txt
@@ -171,97 +148,43 @@ Thanks, you just typed: test.txt
 
 
 <p>為什麼好像有些基本的功能 scala 都沒有而必須用 java 的函式庫？像 scala 可以讀檔案，但是寫檔案要用 java 的 io ...。感覺沒有學 java 就跳進 scala 有點吃力QQ。</p>
-    </article>
-
-        <div class="tags">
-            <p>tags: <a href="http://hauhsu.github.io/tag/scala.html">scala</a></p>
-        </div>
-
-<hr>
-<div class="sharing">
-</div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'hautolive';
-                var disqus_identifier = 'scala-simple-file-read-write.html';
-                var disqus_url = 'http://hauhsu.github.io/scala-simple-file-read-write.html';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//hautolive.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
-            </div>
-        </div>
     </div>
-
-    <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://github.com/hauhsu">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://facebook.com/howard0617">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-<p class="copyright text-muted">
-    Blog powered by <a href="http://getpelican.com">Pelican</a>,
-    which takes great advantage of <a href="http://python.org">Python</a>.
-</p>                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- jQuery -->
-    <script src="http://hauhsu.github.io/theme/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="http://hauhsu.github.io/theme/js/bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="http://hauhsu.github.io/theme/js/clean-blog.min.js"></script>
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-6890763-2']);
-    _gaq.push(['_trackPageview']);
+  </article>
+  <hr>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://hauhsu.github.io/scala-simple-file-read-write.html';
+      this.page.identifier = 'scala-simple-file-read-write';
+    };
     (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      var d = document;
+      var s = d.createElement('script');
+      s.src = '//hautolive.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
     })();
-    </script>
-<script type="text/javascript">
-    var disqus_shortname = 'hautolive';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-</script>
+  </script>
+  <noscript class="text-muted">
+    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://hauhsu.github.io/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="http://hauhsu.github.io/categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="http://hauhsu.github.io/tags.html">Tags</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
 </body>
 
 </html>

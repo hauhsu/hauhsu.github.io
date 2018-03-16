@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive - life</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/life.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2018-02-16T21:51:00+08:00</updated><entry><title>所以我又回來了</title><link href="http://hauhsu.github.io/so-i-am-back-again.html" rel="alternate"></link><published>2018-02-16T21:51:00+08:00</published><updated>2018-02-16T21:51:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2018-02-16:/so-i-am-back-again.html</id><summary type="html">&lt;p&gt;一個我又換回 Github.io + Pelican 的小記&lt;/p&gt;</summary><content type="html">&lt;p&gt;我真的是很善變的人，每次要寫文章就想換平台。國高中的時候用無名，&lt;br&gt;
+大學用 Blogger，後來為了寫技術相關的文章開始找支援可以放程式碼的平台，&lt;br&gt;
+先後試了 Github.io + Pelican、Logdown、wordpress、Github.io + Jekyll、到&lt;br&gt;
+最近用 Medium。在 Medium 發了幾篇文章之後，覺得在上面寫私人的事情實在有點&lt;br&gt;
+太羞恥，感覺還是要有一個比較私人的空間，於是又想回到 Github.io。&lt;br&gt;
+和使用 Ruby 的 Jekyll 比起來，我還是比較習慣用 Python 的 Pelican，&lt;br&gt;
+於是又再花了一個下午把只發了三篇文就荒廢好久的 Pelican repo 整理一下，&lt;br&gt;
+換了個比較滿意的模板 pelican-alchemy。&lt;/p&gt;
+&lt;p&gt;這次我會好好使用她的（握拳）！&lt;/p&gt;
+&lt;p&gt;這裏以後規劃會放自己生活相關（開箱、抱怨、旅遊、評論之類的吧）以及技術相關&lt;br&gt;
+我猜技術相關的會有一些是用英文，因為之前用中文寫過一些技術文，好多專有名詞&lt;br&gt;
+真的不知道怎麼翻R...&lt;/p&gt;
+&lt;p&gt;好啦規劃都是說說，會不會寫按照經驗是另一回事了（啊前兩段是在⋯⋯？）&lt;/p&gt;</content><category term="life"></category><category term="blog"></category></entry></feed>

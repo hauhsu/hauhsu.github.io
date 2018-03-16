@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/all.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2016-09-20T00:00:00+08:00</updated><entry><title>Scala 的簡單檔案讀寫練習</title><link href="http://hauhsu.github.io/scala-simple-file-read-write.html" rel="alternate"></link><published>2016-09-20T00:00:00+08:00</published><updated>2016-09-20T00:00:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-09-20:scala-simple-file-read-write.html</id><summary type="html">&lt;p&gt;初學 scala，覺得困難。
+<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/all.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2018-02-16T21:51:00+08:00</updated><entry><title>所以我又回來了</title><link href="http://hauhsu.github.io/so-i-am-back-again.html" rel="alternate"></link><published>2018-02-16T21:51:00+08:00</published><updated>2018-02-16T21:51:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2018-02-16:/so-i-am-back-again.html</id><summary type="html">&lt;p&gt;一個我又換回 Github.io + Pelican 的小記&lt;/p&gt;</summary><content type="html">&lt;p&gt;我真的是很善變的人，每次要寫文章就想換平台。國高中的時候用無名，&lt;br&gt;
+大學用 Blogger，後來為了寫技術相關的文章開始找支援可以放程式碼的平台，&lt;br&gt;
+先後試了 Github.io + Pelican、Logdown、wordpress、Github.io + Jekyll、到&lt;br&gt;
+最近用 Medium。在 Medium 發了幾篇文章之後，覺得在上面寫私人的事情實在有點&lt;br&gt;
+太羞恥，感覺還是要有一個比較私人的空間，於是又想回到 Github.io。&lt;br&gt;
+和使用 Ruby 的 Jekyll 比起來，我還是比較習慣用 Python 的 Pelican，&lt;br&gt;
+於是又再花了一個下午把只發了三篇文就荒廢好久的 Pelican repo 整理一下，&lt;br&gt;
+換了個比較滿意的模板 pelican-alchemy。&lt;/p&gt;
+&lt;p&gt;這次我會好好使用她的（握拳）！&lt;/p&gt;
+&lt;p&gt;這裏以後規劃會放自己生活相關（開箱、抱怨、旅遊、評論之類的吧）以及技術相關&lt;br&gt;
+我猜技術相關的會有一些是用英文，因為之前用中文寫過一些技術文，好多專有名詞&lt;br&gt;
+真的不知道怎麼翻R...&lt;/p&gt;
+&lt;p&gt;好啦規劃都是說說，會不會寫按照經驗是另一回事了（啊前兩段是在⋯⋯？）&lt;/p&gt;</content><category term="life"></category><category term="blog"></category></entry><entry><title>Scala 的簡單檔案讀寫練習</title><link href="http://hauhsu.github.io/scala-simple-file-read-write.html" rel="alternate"></link><published>2016-09-20T00:00:00+08:00</published><updated>2016-09-20T00:00:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-09-20:/scala-simple-file-read-write.html</id><summary type="html">&lt;p&gt;Scala 簡單練習筆記&lt;/p&gt;</summary><content type="html">&lt;p&gt;初學 scala，覺得困難。
 沒想到只是要寫個簡單的程式（讓使用者輸入一個檔名，把那個檔案內容再寫到另一個檔案），
 居然要搞半個小時。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.io&lt;/span&gt;
@@ -29,7 +41,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Demo 是一個 object，裡面有兩個函式：&lt;code&gt;printToFile&lt;/code&gt;和&lt;code&gt;main&lt;/code&gt;。&lt;br /&gt;
+&lt;p&gt;Demo 是一個 object，裡面有兩個函式：&lt;code&gt;printToFile&lt;/code&gt;和&lt;code&gt;main&lt;/code&gt;。&lt;br&gt;
 &lt;code&gt;printToFIle&lt;/code&gt; 是從 &lt;a href="http://stackoverflow.com/questions/4604237/how-to-write-to-a-file-in-scala"&gt;stackoverflow&lt;/a&gt; 上的答案抄下來的。這個函式有兩組參數：要寫的檔案和定義你要怎麼寫函式。&lt;code&gt;op&lt;/code&gt;是一個函式，會吃一個 java.io.PrintWrriter 的參數，而返回值是 Unit。&lt;/p&gt;
 &lt;p&gt;在 main 裡，我們先用 &lt;code&gt;Console.readLine&lt;/code&gt; 讓使用者輸入要讀的檔案名稱，將這個名稱存到 &lt;code&gt;infile&lt;/code&gt; 變數中。接著用 &lt;code&gt;java.io.File&lt;/code&gt; 開啟 outfile.txt。
 接著呼叫 &lt;code&gt;printToFile&lt;/code&gt; 函式來將 &lt;code&gt;infile&lt;/code&gt; 中的資料寫到 &lt;code&gt;outfile&lt;/code&gt;。這邊呼叫的方式有點特別，當某個函式有兩組輸入參數時，scala 允許你用大括號來把第二組參數包起來。這樣如果第二組參數是一個函式時程式會比較好讀。這邊就是一個例子，&lt;code&gt;printToFile&lt;/code&gt;的第二個參數是一個函式，而      &lt;/p&gt;
@@ -52,9 +64,9 @@
 
 &lt;p&gt;&lt;code&gt;p&lt;/code&gt; 是一個 &lt;code&gt;java.io.PrintWriter&lt;/code&gt;，這個 PrintWriter 是在 &lt;code&gt;printToFile&lt;/code&gt; 裡面才被實體化的，在這邊是用 p 來代表這個傳入的 &lt;code&gt;PrintWriter&lt;/code&gt;。&lt;code&gt;=&amp;gt;&lt;/code&gt;後面就是這個函數做的事情：用 Source.fromFile 打開 infile，然後將檔案裡的每一行用 &lt;code&gt;p&lt;/code&gt; 的 &lt;code&gt;print&lt;/code&gt; 函式處理。&lt;/p&gt;
 &lt;h2&gt;編譯和執行&lt;/h2&gt;
-&lt;p&gt;把上面的程式碼存成&lt;code&gt;fileio.scala&lt;/code&gt;，然後用以下指令編譯和執行：&lt;br /&gt;
-&lt;code&gt;$ scalac fileio.scala&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;$ echo "aaa\nbbb\nccc\n" &amp;gt; test.txt  #隨便放一些字到test.txt中&lt;/code&gt; &lt;br /&gt;
+&lt;p&gt;把上面的程式碼存成&lt;code&gt;fileio.scala&lt;/code&gt;，然後用以下指令編譯和執行：&lt;br&gt;
+&lt;code&gt;$ scalac fileio.scala&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;$ echo "aaa\nbbb\nccc\n" &amp;gt; test.txt  #隨便放一些字到test.txt中&lt;/code&gt; &lt;br&gt;
 &lt;code&gt;$ scala Demo&lt;/code&gt;  &lt;/p&gt;
 &lt;p&gt;輸出：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Please enter input file name: test.txt
@@ -62,7 +74,7 @@ Thanks, you just typed: test.txt
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;為什麼好像有些基本的功能 scala 都沒有而必須用 java 的函式庫？像 scala 可以讀檔案，但是寫檔案要用 java 的 io ...。感覺沒有學 java 就跳進 scala 有點吃力QQ。&lt;/p&gt;</summary><category term="scala"></category></entry><entry><title>SSH 隧道</title><link href="http://hauhsu.github.io/ssh-tunnel.html" rel="alternate"></link><published>2016-07-31T09:00:00+08:00</published><updated>2016-07-31T09:00:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-07-31:ssh-tunnel.html</id><summary type="html">&lt;h2&gt;SSH 埠映射 (SSH port forwarding)&lt;/h2&gt;
+&lt;p&gt;為什麼好像有些基本的功能 scala 都沒有而必須用 java 的函式庫？像 scala 可以讀檔案，但是寫檔案要用 java 的 io ...。感覺沒有學 java 就跳進 scala 有點吃力QQ。&lt;/p&gt;</content><category term="scala"></category></entry><entry><title>SSH 隧道</title><link href="http://hauhsu.github.io/ssh-tunnel.html" rel="alternate"></link><published>2016-07-31T09:00:00+08:00</published><updated>2016-07-31T09:00:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-07-31:/ssh-tunnel.html</id><summary type="html">&lt;p&gt;透過 ssh tunnel + port forwarding 連到遠端機器&lt;/p&gt;</summary><content type="html">&lt;h2&gt;SSH 埠映射 (SSH port forwarding)&lt;/h2&gt;
 &lt;p&gt;SSH 的功能很多，除了單純的連線遠端登入以外，
 也可以在本地端和遠端的伺服器建立隧道 (tunnel) 並且進行埠映射 (port forwarding)，將訪問本地端的封包透過隧道轉送到遠端的機器上。&lt;/p&gt;
 &lt;h2&gt;範例情境&lt;/h2&gt;
@@ -73,13 +85,16 @@ Thanks, you just typed: test.txt
 &lt;p&gt;指令前半段 &lt;code&gt;ssh -L 9999:localhost:9999 user@jump_server&lt;/code&gt; 的意思是，我們在本地端建立一個埠映射，所有要連線到本地 port 9999 的封包都會被轉送到 jump_server 上的 port 9999，我們可以把這個叫做 SSH 隧道 (SSH tunnel)。而後半段 &lt;code&gt;ssh -L 9999:localhost:80 user@web_server&lt;/code&gt; 意思差不多，就是建立 jump_server 到 web_server 的 ssh tunnel。
 隧道建立好之後，我們就可以在瀏覽器上的網址列輸入&lt;code&gt;localhost:9999&lt;/code&gt;。這時瀏覽器會送出請求到本地端的 port 9999，埠映射會把請求送到跳板機上，而跳板機上的埠映射又把請求繼續轉送到真正的網頁伺服器上，如下圖所示。&lt;/p&gt;
 &lt;p&gt;&lt;img src="images/scenario.png" /&gt;&lt;/p&gt;
-&lt;p&gt;如此一來，我們就能夠安全的用自己的電腦測試網頁了。&lt;/p&gt;</summary><category term="ssh"></category></entry><entry><title>用 Pelican 在 GitHub 上建立 Blog</title><link href="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html" rel="alternate"></link><published>2016-06-04T10:22:00+08:00</published><updated>2016-06-04T10:22:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-06-02:build-blog-on-github-pages-using-pelican.html</id><summary type="html">&lt;p&gt;這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo
+&lt;p&gt;如此一來，我們就能夠安全的用自己的電腦測試網頁了。&lt;/p&gt;</content><category term="ssh"></category></entry><entry><title>用 Pelican 在 GitHub 上建立 Blog</title><link href="http://hauhsu.github.io/build-blog-on-github-pages-using-pelican.html" rel="alternate"></link><published>2016-06-02T16:00:00+08:00</published><updated>2016-06-04T10:22:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2016-06-02:/build-blog-on-github-pages-using-pelican.html</id><summary type="html">&lt;p&gt;如何用 Pelican 在 Github Pages 建部落格&lt;/p&gt;</summary><content type="html">&lt;p&gt;Note on 2018/2/16:
+發了三篇文、荒廢了將近兩年後再回來整理，發現我好像把這件事弄得太複雜了。
+之後再 po 一篇比較正確的好了。&lt;/p&gt;
+&lt;p&gt;這篇教學會在你的電腦上建立一個 Pelican 的專案，並且用 git repo
 來做版本管理。而在 GitHub 上我們會建立兩個 repo，一個用來存 Pelican
 專案的程式碼，讓我們可以在不同的電腦上編輯和發布文章；另一個 repo 是 GitHub User
 Page，用來放架好的網站。&lt;/p&gt;
 &lt;h2&gt;GitHub Pages 簡介&lt;/h2&gt;
 &lt;p&gt;GitHub 有提供一個簡單的方法讓使用者架設個人網站 (User Pages) 或專案網站 (Project Pages)。
-這篇主要是講個人網站的部分，其實也就是這個網站怎麼架的:p。&lt;br /&gt;
+這篇主要是講個人網站的部分，其實也就是這個網站怎麼架的:p。&lt;br&gt;
 要使用 GitHub 的 User Page，首先要在 GitHub 上建立一個 repo，而且名稱必須是
 &amp;lt;username&amp;gt;.github.io。
 我的帳號是hauhsu，所以 repo 名稱就是 hauhsu.github.io。
@@ -164,7 +179,7 @@ Done. Your new project is available at ~/blog
 
 &lt;p&gt;接著用 Pelican 給的 makefile 生出靜態網頁，並且開啟簡單的 http 伺服器讓你可以透過瀏覽器預覽結果：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ make html &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; make serve
-Done: Processed &lt;span class="m"&gt;1&lt;/span&gt; article, &lt;span class="m"&gt;0&lt;/span&gt; drafts, &lt;span class="m"&gt;0&lt;/span&gt; pages and &lt;span class="m"&gt;0&lt;/span&gt; hidden pages in 0.23 seconds.
+Done: Processed &lt;span class="m"&gt;1&lt;/span&gt; article, &lt;span class="m"&gt;0&lt;/span&gt; drafts, &lt;span class="m"&gt;0&lt;/span&gt; pages and &lt;span class="m"&gt;0&lt;/span&gt; hidden pages in &lt;span class="m"&gt;0&lt;/span&gt;.23 seconds.
 &lt;span class="nb"&gt;cd&lt;/span&gt; /Users/howardxu/Test/pelican/output &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m pelican.server
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -243,4 +258,4 @@ $ git fetch github
 
 
 &lt;p&gt;到這邊我們就已經在另一台電腦上把上面那張 repo 關係圖重建完成。
-要預覽或發布文章，一樣用之前的 make 指令即可！&lt;/p&gt;</summary><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="python"></category></entry></feed>
+要預覽或發布文章，一樣用之前的 make 指令即可！&lt;/p&gt;</content><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="python"></category></entry></feed>
