@@ -1,5 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/all.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2018-02-16T21:51:00+08:00</updated><entry><title>所以我又回來了</title><link href="http://hauhsu.github.io/so-i-am-back-again.html" rel="alternate"></link><published>2018-02-16T21:51:00+08:00</published><updated>2018-02-16T21:51:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2018-02-16:/so-i-am-back-again.html</id><summary type="html">&lt;p&gt;一個我又換回 Github.io + Pelican 的小記&lt;/p&gt;</summary><content type="html">&lt;p&gt;我真的是很善變的人，每次要寫文章就想換平台。國高中的時候用無名，&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>HauToLive</title><link href="http://hauhsu.github.io/" rel="alternate"></link><link href="http://hauhsu.github.io/feeds/all.atom.xml" rel="self"></link><id>http://hauhsu.github.io/</id><updated>2018-03-15T00:00:00+08:00</updated><entry><title>GDB TUI - 原來 GDB 要這樣用</title><link href="http://hauhsu.github.io/gdb-tui.html" rel="alternate"></link><published>2018-03-15T00:00:00+08:00</published><updated>2018-03-15T00:00:00+08:00</updated><author><name>Hsu Hau</name></author><id>tag:hauhsu.github.io,2018-03-15:/gdb-tui.html</id><summary type="html">&lt;p&gt;GDB 的文字使用者介面介紹和教學&lt;/p&gt;</summary><content type="html">&lt;p&gt;一直以來我都覺得 GDB 世界難用，要記一堆指令，要看程式跑到哪裡只能用 list
+，還一次只秀個十行給你。我也不知道我在哪個檔案的哪一行設了 break point 等等。
+腦袋要記和要想像的東西太多，每次都用一下子就覺得頭昏腦脹，最後又回到 printf
+debug 大法，頂多就是遇到 segmentation fault 很快的看能不能用 GDB 找到死在哪。&lt;/p&gt;
+&lt;p&gt;直到我打開了 TUI，整個世界都不一樣了！！&lt;/p&gt;
+&lt;p&gt;以下會用一個有問題的小程式來 demo 用 TUI debug 的過程。&lt;/p&gt;
+&lt;p&gt;首先準備以下程式並且命名為 &lt;code&gt;sum.c&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[],&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+  &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sum = %d&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;這隻程式裡有一個函式，給他一個整數的陣列和陣列大小，他會算出這個陣列中所有數字的總和並回傳。在 main 當中則是呼叫這個函式去算 1~5 的總和然後印出來。&lt;/p&gt;
+&lt;p&gt;編譯後執行，沒想到這麼簡單的程式竟然印出奇怪的數字？！&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ gcc sum.c -o sum -g
+$ ./sum
+&lt;span class="nv"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;32782&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;這是怎麼一回事呢？我們加上 debug symbol 後重新編譯，然後打開 gdb 並且進入 TUI 模式：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ gcc sum -o sum -g
+$ gdb sum -tui
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者也可以用一般模式進入 gdb 以後再用 Ctrl-x Ctrl-a 打開 TUI。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://hauhsu.github.io/images/gdb-tui/gdb1.png"&gt;&lt;/p&gt;
+&lt;p&gt;開了以後視窗會分成上下兩半，上半部是目前在執行的程式碼， 下半部就是 GDB 輸入指令的介面。進入 TUI 模式後，方向鍵的上下變成移動上視窗程式碼的部分。如果要像一般 GDB 執行前一個或下一個指令的話，可以用 Ctrl-p 和 Ctrl-n。&lt;/p&gt;
+&lt;p&gt;接著我們在 main 一開始的時候設一個中斷點，再開始執行程式，這樣程式就會停在 main 的第一行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(gdb) b main
+(gdb) r
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;下圖可以看到程式正在執行的地方會被反白起來，然後在行數的左邊會顯示中斷點。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://hauhsu.github.io/images/gdb-tui/gdb2.png"&gt;&lt;/p&gt;
+&lt;p&gt;接著我想知道每次執行迴圈後 sum 的值怎麼改變，所以我們在第六行設一個中斷點，並且用 &lt;code&gt;command&lt;/code&gt; 來設定每次到這個中斷點都要把 i 、要加的數目、以及加之前的 sum 印出來：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(gdb) b 6
+(gdb) command
+Type commands for breakpoint(s) 2, one per line.
+End with a line saying just &amp;quot;end&amp;quot;.
+&amp;gt;p i
+&amp;gt;p nums[i]
+&amp;gt;p sum
+&amp;gt;end
+(gdb) c
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="" src="http://hauhsu.github.io/images/gdb-tui/gdb3.png"&gt;&lt;/p&gt;
+&lt;p&gt;現在 &lt;code&gt;i&lt;/code&gt; 跟 &lt;code&gt;sum&lt;/code&gt; 都是 0，準備要加的數字是 1，看起來沒問題，接著用 &lt;code&gt;continue&lt;/code&gt; 往下執行一次迴圈：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(gdb) c
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="" src="http://hauhsu.github.io/images/gdb-tui/gdb4.png"&gt;&lt;/p&gt;
+&lt;p&gt;現在 &lt;code&gt;i&lt;/code&gt; 跟 &lt;code&gt;sum&lt;/code&gt; 都是 1，要注意 sum
+的值是上一輪算完的結果。如此再重複四次，我們可以直接按 &lt;Enter&gt; 重複上一個指令。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://hauhsu.github.io/images/gdb-tui/gdb5.png"&gt;&lt;/p&gt;
+&lt;p&gt;到這邊應該要算完了，&lt;code&gt;i&lt;/code&gt; 的值是 4，要加的數字是 5，加上去之前的 &lt;code&gt;sum&lt;/code&gt; 是十，看起來也沒錯，到底錯在哪裡？我們按下 &lt;Enter&gt; ，神奇的事情出現了：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://hauhsu.github.io/images/gdb-tui/gdb6.png"&gt;&lt;/p&gt;
+&lt;p&gt;原來在設定 for 迴圈離開條件的地方寫成了 &lt;code&gt;i &amp;lt;= size&lt;/code&gt;，會讓迴圈多跑一次，結果明明我們給的陣列只有五個元素，這個函式卻會去算到第六個元素造成錯誤。&lt;/p&gt;
+&lt;p&gt;有了視覺化的幫助真的讓 GDB 好用非常非常多，程式執行到什麼檔案的哪一行、break point 設在哪裡一目瞭然，這也幫我解了工作上的第一個 issue :))。&lt;/p&gt;</content><category term="gdb"></category></entry><entry><title>所以我又回來了</title><link href="http://hauhsu.github.io/so-i-am-back-again.html" rel="alternate"></link><published>2018-02-16T21:51:00+08:00</published><updated>2018-02-16T21:51:00+08:00</updated><author><name>Hau Hsu</name></author><id>tag:hauhsu.github.io,2018-02-16:/so-i-am-back-again.html</id><summary type="html">&lt;p&gt;一個我又換回 Github.io + Pelican 的小記&lt;/p&gt;</summary><content type="html">&lt;p&gt;我真的是很善變的人，每次要寫文章就想換平台。國高中的時候用無名，&lt;br&gt;
 大學用 Blogger，後來為了寫技術相關的文章開始找支援可以放程式碼的平台，&lt;br&gt;
 先後試了 Github.io + Pelican、Logdown、wordpress、Github.io + Jekyll、到&lt;br&gt;
 最近用 Medium。在 Medium 發了幾篇文章之後，覺得在上面寫私人的事情實在有點&lt;br&gt;
