@@ -4,15 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Hi, I am Hau Hsu. I am a software engineer in Taiwan.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I found that writing is a great way for learning, sharing, and recording.  
+So I created this blog to write things down.  
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+The posts might be written in both English and Mandarin.  
+Technical articles are mainly written in English.  
+Diary-like articles would be written in Chinese.  
 
-
-[jekyll-organization]: https://github.com/jekyll
